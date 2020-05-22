@@ -185,6 +185,37 @@
        
        
     })
+    
+    #1发票管理模块---------
+    #1.1发票格式化-----------
+    
+    var_fp_format_file <- var_file("fp_format_file")
+    db_fp_format <- eventReactive(input$fp_format_preview,{
+      file <-  var_fp_format_file()
+      print(file)
+      res <- rdfp::deal_fapiao(file)
+      return(res)
+      
+    })
+    
+    observeEvent(input$fp_format_preview,{
+      run_dataTable2('fp_format_dataTable',db_fp_format())
+    })
+    
+    #1.2发票ERP
+    
+    db_erp_fp <-function(){
+      erp_fp_sql <-"select top 3  *  from takewiki_md_customer"
+      res <-tsda::sql_select(conn,erp_fp_sql)
+      return(res)
+      
+    }
+    
+    observeEvent(input$erp_fp_preview,{
+      data <-  db_erp_fp()
+      names(data) <-c('代码','名称','抬头','税号','开户行','账号','地址','电话')
+      run_dataTable2('erp_fp_dataTable',data)
+    })
    
    
    
