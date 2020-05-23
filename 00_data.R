@@ -1,7 +1,7 @@
 # 设置app标题-----
 
 
-app_title <-'康健数据处理平台V1.0';
+app_title <-'康健数据处理平台V1.1';
 
 # store data into rdbe in the rds database
 app_id <- 'kjrds'
@@ -13,9 +13,8 @@ conn_be <- conn_rds('rdbe')
 
 
 #设置链接---
-#conn <- conn_rds('nsic')
-#conn setting for kjrds
-source('kjrds.R',encoding = 'utf-8')
+
+conn <- conn_kjrds()
 
 
 
