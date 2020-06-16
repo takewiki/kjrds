@@ -199,8 +199,26 @@
     })
     
     observeEvent(input$fp_format_preview,{
-      run_dataTable2('fp_format_dataTable',db_fp_format())
+      data <-db_fp_format()
+      run_dataTable2('fp_format_dataTable',data)
+      pop_notice("完成发票预处理")
+      
     })
+    
+    
+    observeEvent(input$fp_format_update,{
+      shinyjs::disable('fp_format_update')
+      data <-db_fp_format()
+      
+      kjrdspkg::fp_updateBatch(conn=conn,data=data,show_process = TRUE)
+      pop_notice("完成客户开票信息更新!")
+      
+    })
+    
+    observeEvent(input$fp_format_update_reset,{
+      shinyjs::enable('fp_format_update')
+    })
+    
     
     #1.2发票ERP
     

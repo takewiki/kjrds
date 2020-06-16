@@ -15,6 +15,8 @@ conn_be <- conn_rds('rdbe')
 #设置链接---
 
 conn <- conn_kjrds()
+#测试环境
+#conn <- tsda::conn_rds('kj613')
 
 
 
