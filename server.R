@@ -193,7 +193,7 @@
     db_fp_format <- eventReactive(input$fp_format_preview,{
       file <-  var_fp_format_file()
       print(file)
-      res <- rdfp::deal_fapiao(file)
+      res <- rdfp::deal_fapiao2(file)
       return(res)
       
     })

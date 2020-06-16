@@ -6,7 +6,7 @@ menu_row <-  tabItem(tabName = "row",
                                      tabPanel('金税发票数据',tagList(
                                        fluidRow(column(4,box(
                                          title = "操作区域", width = NULL, solidHeader = TRUE, status = "primary",
-                                         mdl_file('fp_format_file','请选择发票Excel xlsx文件'),
+                                         mdl_file('fp_format_file','请选择金税开票引出txt文件'),
                                          actionButton('fp_format_preview','预览金税发票'),
                                          #actionButton('fp_format_upload','上传服务器'),
                                          actionButton('fp_format_update','更新ERP'),
