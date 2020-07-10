@@ -1,8 +1,10 @@
 # 设置app标题-----
 
 
-app_title <-'康健数据处理平台V1.2';
+app_title <-'康健数据处理平台V1.3';
 #change log  upgrade into txt
+#upgrade into v1.3
+#增加模板匹配
 
 # store data into rdbe in the rds database
 app_id <- 'kjrds'

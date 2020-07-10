@@ -210,7 +210,7 @@
       shinyjs::disable('fp_format_update')
       data <-db_fp_format()
       
-      kjrdspkg::fp_updateBatch(conn=conn,data=data,show_process = TRUE)
+      kjrdspkg::fp_updateBatch(conn=conn,data=data,show_process = TRUE,multiple = TRUE)
       pop_notice("完成客户开票信息更新!")
       
     })
