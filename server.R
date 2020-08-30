@@ -236,7 +236,52 @@
     })
    
    
-   
+   # 更新客户发票各类及开票发票------
+    var_cust_fp_file <- var_file('cust_fp_file')
+
+    observeEvent(input$cust_fp_preview,{
+      file <- var_cust_fp_file()
+      sheet <- input$cust_fp_sheetName
+      data <- kjrdspkg::cust_getFpType(file = file,sheet = sheet)
+      run_dataTable2('cust_fp_dataTable',data = data)
+      
+      
+    })
+    
+    #更新客户资料
+    observeEvent(input$cust_fp_update,{
+      shinyjs::disable('cust_fp_update')
+      file <- var_cust_fp_file()
+      sheet <- input$cust_fp_sheetName
+      try({
+        kjrdspkg::cust_syncFpType(conn=conn,file = file,sheet = sheet)
+      })
+      pop_notice("更新客户发票种类及开票要求成功!")
+      
+    })
+    observeEvent(input$cust_fp_update_reset,{
+      shinyjs::enable('cust_fp_update')
+    })
+    #更新物料上的开票名称及规格型号------
+    var_mtrl_fp_file <- var_file('mtrl_fp_file')
+    observeEvent(input$mtrl_fp_preview,{
+      file <- var_mtrl_fp_file()
+      sheet <- input$mtrl_fp_sheetName
+      data <- kjrdspkg::mtrl_getFpName(file=file,sheet = sheet)
+      run_dataTable2('mtrl_fp_dataTable',data = data)
+      
+    })
+    
+    observeEvent(input$mtrl_fp_update,{
+      shinyjs::disable('mtrl_fp_update')
+      file <- var_mtrl_fp_file()
+      sheet <- input$mtrl_fp_sheetName
+      try({
+        kjrdspkg::mtrl_syncFpName(conn=conn,file = file,sheet = sheet)
+      })
+      pop_notice("更新物料开票名称及规格型号成功!")
+      
+    })
    
   
 })

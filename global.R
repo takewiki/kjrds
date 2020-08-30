@@ -1,6 +1,9 @@
 ## global.R ##
 # 加载R包-----
 enableBookmarking(store = "url")
+#设置shiny最大文件的上传大小
+#最大的上传附件设置为30M
+options(shiny.maxRequestSize=30*1024^2) 
 library(shiny);
 library(shinydashboard);
 library(tsda);

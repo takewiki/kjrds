@@ -1,7 +1,10 @@
 # 设置app标题-----
 
 
-app_title <-'康健数据处理平台V1.3';
+app_title <-'康健数据处理平台V1.4';
+#V1.4
+# 添加客户中的发票类型及开票据要求
+#添加物料中的开票名称及规格型号
 #change log  upgrade into txt
 #upgrade into v1.3
 #增加模板匹配
