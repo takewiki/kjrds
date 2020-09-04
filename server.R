@@ -282,6 +282,27 @@
       pop_notice("更新物料开票名称及规格型号成功!")
       
     })
+    
+    #处理安全库存报表
+    var_inv_company <- var_ListChoose1('inv_company')
+    var_inv_query_file <- var_file('inv_query_file')
+    observeEvent(input$inv_rpt_preview,{
+      FCompanyId = as.integer(var_inv_company())
+      file =  var_inv_query_file()
+      filter_ItemNumber =kjrdspkg::inv_paramGetMaterial(file=file)
+      filter_stockName = kjrdspkg::inv_paramGetStock(file=file)
+      data <- try({
+        kjrdspkg::inv_getRpt_cast(conn=conn,FCompanyId = FCompanyId,
+                                  filter_ItemNumber =filter_ItemNumber ,
+                                  filter_stockName = filter_stockName)
+      })
+      
+      file_name <- paste0("安库库存报表_",as.character(Sys.Date()),'.xlsx')
+      
+      run_dataTable2(id = 'inv_rpt_dataShow',data=data)
+      run_download_xlsx(id = 'inv_dl',data = data,filename = file_name )
+      
+    })
    
   
 })
