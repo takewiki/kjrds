@@ -303,6 +303,7 @@
       run_download_xlsx(id = 'inv_dl',data = data,filename = file_name )
       
     })
-   
+   #下载库存库存模板
+    run_download_xlsx('inv_tpl_dl',data = tpl_inv,filename = '安全库存报表查询模板.xlsx')
   
 })

@@ -1,7 +1,9 @@
 # 设置app标题-----
 
 
-app_title <-'康健数据处理平台V1.5';
+app_title <-'康健数据处理平台V1.6';
+#V1.6
+#增加安全库存模板的下载
 
 #V1.5
 #增加安全库存报表1
@@ -27,6 +29,16 @@ conn_be <- conn_rds('rdbe')
 conn <- conn_kjrds()
 #测试环境
 #conn <- tsda::conn_rds('kj613')
+
+#安全库存模板---
+
+tpl_mtrl <- readxl::read_excel("www/安全库存查询模板.xlsx", 
+                       sheet = "物料")
+tpl_stock <-readxl::read_excel("www/安全库存查询模板.xlsx", 
+                               sheet = "仓库")
+tpl_inv <- list(tpl_mtrl,tpl_stock)
+names(tpl_inv) <-c('物料','仓库')
+
 
 
 

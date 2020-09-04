@@ -11,6 +11,7 @@ menu_majority <- tabItem(tabName = "majority",
                                                              choiceNames = list('江苏康健医疗用品有限公司','江苏康健进出口有限公司'),
                                                              choiceValues =list('100202','100011'),selected = '100202' 
                                                               ),
+                                             mdl_download_button('inv_tpl_dl', '没有模板?请点此下载'),
                                              mdl_file('inv_query_file','请上传安全库存查询物料及仓库范围.xlsx:'),
                                              actionButton('inv_rpt_preview','预览报表'),
                                              mdl_download_button('inv_dl','下载报表')
