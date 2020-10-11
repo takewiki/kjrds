@@ -288,7 +288,9 @@
     var_inv_query_file <- var_file('inv_query_file')
     observeEvent(input$inv_rpt_preview,{
       FCompanyId = as.integer(var_inv_company())
+      print(FCompanyId)
       file =  var_inv_query_file()
+      print(file)
       filter_ItemNumber =kjrdspkg::inv_paramGetMaterial(file=file)
       filter_stockName = kjrdspkg::inv_paramGetStock(file=file)
       data <- try({
@@ -305,5 +307,74 @@
     })
    #下载库存库存模板
     run_download_xlsx('inv_tpl_dl',data = tpl_inv,filename = '安全库存报表查询模板.xlsx')
+  #生产管理平台--------
+  var_mo_number_one <- var_text('mo_number_one')
+  #生产订单的单据类型
+  var_mo_billType <- var_ListChoose1('mo_billType')
+  observeEvent(input$mo_number_one_btn,{
+    FBillNo <- var_mo_number_one()
+    FBillType <- var_mo_billType()
+    if (len(FBillNo) >0) {
+      res <-try(mo_reSave(FBillNo = FBillNo,FBillType = FBillType))
+      pop_notice(res$msg)
+    }else{
+      pop_notice('请输入生产订单表头的单据编号!')
+    }
+
+  
+  })
+  
+  #创建或重新审核状态的生产订单执行重新保存
+  observeEvent(input$mo_number_all_btn,{
+    FBillType <- var_mo_billType()
+    res <-try(mo_reSave_auto(FBillType =FBillType))
+    pop_notice('生产订单全部重新保存成功!')
+  })
+    
+  #生产订单提交-----
+  var_mo_number_submit <- var_text('mo_number_submit')
+  observeEvent(input$mo_number_submit_btn,{
+    FBillNo = var_mo_number_submit()
+    if(len(FBillNo) >0){
+      FBillList = as.list(strsplit(FBillNo,',')[[1]])
+     res <- try(mo_submit(FBillList = FBillList))
+     pop_notice(res$msg)
+    }else{
+      pop_notice('请输入生产订单表头的单据编号!')
+    }
+    
+
+  })
+  
+  #生产订单审核-----
+  var_mo_number_audit <- var_text('mo_number_audit')
+  observeEvent(input$mo_number_audit_btn,{
+    FBillNo <- var_mo_number_audit()
+    if(len(FBillNo) >0){
+      FBillList = as.list(strsplit(FBillNo,',')[[1]])
+      res <- try(mo_audit(FBillList = FBillList))
+      pop_notice(res$msg)
+    }else{
+      pop_notice('请输入生产订单表头的单据编号!')
+    }
+    
+  })
+  
+  # 生产订单下达-----
+  var_mo_number_release <- var_text('mo_number_release')
+  observeEvent(input$mo_number_release_btn,{
+    FBillNo = var_mo_number_release()
+    if(len(FBillNo) >0){
+      FBillList = as.list(strsplit(FBillNo,',')[[1]])
+      res <- try(mo_release(FBillList = FBillList))
+      pop_notice(res$msg)
+    }else{
+      pop_notice('请输入生产订单表头的单据编号!')
+    }
+    
+    
+    
+  })
+  
   
 })

@@ -21,6 +21,8 @@ library(rclipboard);
 library(DTedit);
 library(rdfp);
 library(kjrdspkg);
+library(kdcr); 
+#添加对金蝶云ERP的操作接口
 
 
 source('00_data.R',encoding = 'utf-8');
