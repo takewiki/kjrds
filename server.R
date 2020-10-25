@@ -376,5 +376,74 @@
     
   })
   
+  #成本管理报表------
+  
+  observeEvent(input$kjco_compare_btn,{
+    data <- kjrdspkg::kjco_prdCost_3Compare_cn(conn_kjco)
+    try(run_dataTable2('kjco_compare_dataShow',data = data))
+    file_name <- paste0('生产成本数据下载_3种口径对比_',as.character(Sys.Date()),".xlsx")
+    try(run_download_xlsx(id = 'kjco_compare_dl',data = data,filename = file_name))
+  })
+  
+  # 按BOM口径
+  var_kjco_materialCost_bom_period <- var_ListChoose1('kjco_materialCost_bom_period')
+  
+  observeEvent(input$kjco_material_bom_btn,{
+    FPeriod <- var_kjco_materialCost_bom_period()
+    data <- kjco_materialCost_bom_cn(conn_kjco,FPeriod = FPeriod)
+    run_dataTable2('kjco_materialCost_bom_dataShow',data = data)
+    run_download_xlsx('kjco_material_bom_dl',data = data,filename = paste0('材料成本_BOM口径_',FPeriod,'.xlsx'))
+  })
+  
+  
+  
+  # 按生产用料清单口径 
+  var_kjco_materialCost_ppbom_period <- var_ListChoose1('kjco_materialCost_ppbom_period')
+  
+  observeEvent(input$kjco_material_ppbom_btn,{
+    FPeriod <- var_kjco_materialCost_ppbom_period()
+    data <- kjco_materialCost_ppbom_cn(conn_kjco,FPeriod = FPeriod)
+    run_dataTable2('kjco_materialCost_ppbom_dataShow',data = data)
+    run_download_xlsx('kjco_material_ppbom_dl',data = data,filename = paste0('材料成本_生产用料清单口径_',FPeriod,'.xlsx'))
+  })
+  
+  # 按生产领料单口径 
+  var_kjco_materialCost_pick_period <- var_ListChoose1('kjco_materialCost_pick_period')
+  
+  observeEvent(input$kjco_material_ppbom_btn,{
+    FPeriod <- var_kjco_materialCost_pick_period()
+    data <- kjco_materialCost_pick_cn(conn_kjco,FPeriod = FPeriod)
+    run_dataTable2('kjco_materialCost_pick_dataShow',data = data)
+    run_download_xlsx('kjco_material_pick_dl',data = data,filename = paste0('材料成本_生产领料单口径_',FPeriod,'.xlsx'))
+  })
+  #人工及制造费用
+  var_kjco_hm_period <- var_ListChoose1('kjco_hm_period')
+  
+  observeEvent(input$kjco_hm_btn,{
+    FPeriod <- var_kjco_hm_period()
+    data <- kjco_HumanManufacture_cost_cn(conn_kjco,FPeriod = FPeriod)
+    run_dataTable2('kjco_hm_dataShow',data = data)
+    run_download_xlsx('kjco_hm_dl',data = data,filename = paste0( '人工及制造费用明细_',FPeriod,'.xlsx'))
+  })
+  
+  # 出库单价
+  var_kjco_deal_price_method <- var_ListChoose1('kjco_deal_price_method')
+  observeEvent(input$kjco_deal_price_btn,{
+    method = var_kjco_deal_price_method()
+    data <- kjco_deal_price(conn = conn_kjco,method = method)
+    
+   run_dataTable2('kjco_deal_price_dataShow',data = data)
+   run_download_xlsx('kjco_deal_price_dl',data = data,filename = paste0('出库单价明细_',method,'.xlsx'))
+  })
+  
+  # 计算步骤异常
+   observeEvent(input$kjco_item_lowCode_btn,{
+     data <- kjco_item_lowCode_error(conn = conn_kjco)
+     run_dataTable2('kjco_item_lowCode_dataShow',data = data)
+     run_download_xlsx('kjco_item_lowCode_dl',data = data,filename = '产品计算步骤异常.xlsx')
+     
+     
+   })
+  
   
 })

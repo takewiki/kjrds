@@ -1,7 +1,9 @@
 # 设置app标题-----
 
 
-app_title <-'康健数据处理平台V2.0';
+app_title <-'康健数据处理平台V2.1';
+#2.1
+# 增加成本管理模块
 #V2.0
 #增加生产订单自动重新保存生产订单提交，生产订单审核及生产订单下达功能
 
@@ -30,6 +32,8 @@ conn_be <- conn_rds('rdbe')
 #设置链接---
 
 conn <- conn_kjrds()
+
+conn_kjco <- kjrdspkg::conn_kjco()
 #测试环境
 #conn <- tsda::conn_rds('kj613')
 
@@ -44,6 +48,13 @@ names(tpl_inv) <-c('物料','仓库')
 
 
 
+#成本报表期间
+kjco_period <- function(){
+  
+  res <-list('2020-03','2020-04','2020-05','2020-06','2020-07')
+  return(res)
+}
+  
 
 
 
